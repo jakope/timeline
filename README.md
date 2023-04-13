@@ -1,10 +1,12 @@
+This is a fork of https://github.com/thelostword/timeline; Thank you @thelostword for your work! Instead of DATES it's adoptated to use time (seconds and minutes);
+
 <!--
  * @Author: losting
  * @Date: 2022-05-07 15:31:25
- * @LastEditTime: 2023-02-21 10:27:02
- * @LastEditors: thelostword
+ * @LastEditTime: 2023-04-13 10:15:00
+ * @LastEditors: jakope
  * @Description: 
- * @FilePath: \timeline\README.md
+ * @FilePath: \timeline\README_EN.md
 -->
 中文 | [English](./README_EN.md)
 # timeline
@@ -30,14 +32,14 @@ const timeline = new Timeline('timeline', {
 });
 
 timeline.draw({
-  currentTime: 1651829532,
+  currentTime: 0,
   areas: [{
-    startTime: 1651827433,
-    endTime: 1651829413,
+    startTime: 0,
+    endTime: 60, // 60 seconds
     // bgColor: '#00AEEC55'
   },{
-    startTime: 1651829533,
-    endTime: 1651832533,
+    startTime: 120, // 2 minutes
+    endTime: 240, // 4 minutes
     // bgColor: '#00AEEC55'
   }],
 });
@@ -87,7 +89,7 @@ timeline.on('timeUpdate', (time) => {
 | pointWidth | number | 3 | 当前时间指针宽度 |
 | fps | number | 60 | 帧数 |
 | zoom | integer | 2 | 初始缩放值，`minZoom` ~ `maxZoom` 之间(包含)的正整数 |
-| maxZoom | integer | 9 | 最大缩放限制，1~9之间的整数 |
+| maxZoom | integer | 7 | 最大缩放限制，1~9之间的整数 |
 | minZoom | integer | 1 | 最小缩放限制，1~9之间的整数 |
 
 

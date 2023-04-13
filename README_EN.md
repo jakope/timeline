@@ -1,8 +1,10 @@
+This is a fork of https://github.com/thelostword/timeline; Thank you @thelostword for your work! Instead of DATES it's adoptated to use time (seconds and minutes);
+
 <!--
  * @Author: losting
  * @Date: 2022-05-07 15:31:25
- * @LastEditTime: 2023-02-21 10:27:16
- * @LastEditors: thelostword
+ * @LastEditTime: 2023-04-13 10:15:00
+ * @LastEditors: jakope
  * @Description: 
  * @FilePath: \timeline\README_EN.md
 -->
@@ -30,14 +32,14 @@ const timeline = new Timeline('timeline', {
 });
 
 timeline.draw({
-  currentTime: 1651829532,
+  currentTime: 0,
   areas: [{
-    startTime: 1651827433,
-    endTime: 1651829413,
+    startTime: 0,
+    endTime: 60, // 60 seconds
     // bgColor: '#00AEEC55'
   },{
-    startTime: 1651829533,
-    endTime: 1651832533,
+    startTime: 120, // 2 minutes
+    endTime: 240, // 4 minutes
     // bgColor: '#00AEEC55'
   }],
 });
@@ -87,8 +89,8 @@ timeline.on('timeUpdate', (time) => {
 | pointWidth | number | 3 | The width of the current time pointer |
 | fps | number | 60 | The number of frames per second |
 | zoom | integer | 2 | The initial zoom value, a integer between minZoom and maxZoom (inclusive) |
-| maxZoom | integer | 9 | The maximum zoom limit, a integer between 1 and 9 |
-| minZoom | integer | 1 | The minimum zoom limit, a integer between 1 and 9 |
+| maxZoom | integer | 9 | The maximum zoom limit, a integer between 1 and 7 |
+| minZoom | integer | 1 | The minimum zoom limit, a integer between 1 and 7 |
 
 
 ### Events
@@ -101,7 +103,7 @@ timeline.on('timeUpdate', (time) => {
 #### The draw method
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| currentTime | number | No | The current time. Default value: the current time |
+| currentTime | number | No | The current time. Default value: 0 |
 | areas | array | No | Shaded areas |
 
 #### The on method
@@ -118,7 +120,7 @@ timeline.on(eventName, (value) => {
 #### areas
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| startTime | number | Yes | The start time of the shaded area |
-| endTime | number | Yes | The end time of the shaded area |
+| startTime | number | Yes | The start time of the shaded area in seconds |
+| endTime | number | Yes | The end time of the shaded area in seconds |
 | bgColor | string | No | The background color. Default value: #ffffff55 |
 

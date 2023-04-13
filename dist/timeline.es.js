@@ -1,493 +1,553 @@
-var $t = Object.defineProperty;
-var vt = (n, e, t) => e in n ? $t(n, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : n[e] = t;
-var j = (n, e, t) => (vt(n, typeof e != "symbol" ? e + "" : e, t), t), ct = (n, e, t) => {
-  if (!e.has(n))
+var vt = Object.defineProperty;
+var gt = (e, i, t) => i in e ? vt(e, i, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[i] = t;
+var z = (e, i, t) => (gt(e, typeof i != "symbol" ? i + "" : i, t), t), ht = (e, i, t) => {
+  if (!i.has(e))
     throw TypeError("Cannot " + t);
 };
-var k = (n, e, t) => (ct(n, e, "read from private field"), t ? t.call(n) : e.get(n)), Q = (n, e, t) => {
-  if (e.has(n))
+var Y = (e, i, t) => (ht(e, i, "read from private field"), t ? t.call(e) : i.get(e)), G = (e, i, t) => {
+  if (i.has(e))
     throw TypeError("Cannot add the same private member more than once");
-  e instanceof WeakSet ? e.add(n) : e.set(n, t);
-}, z = (n, e, t, a) => (ct(n, e, "write to private field"), a ? a.call(n, t) : e.set(n, t), t);
-function gt(n) {
-  return { all: n = n || /* @__PURE__ */ new Map(), on: function(e, t) {
-    var a = n.get(e);
-    a ? a.push(t) : n.set(e, [t]);
-  }, off: function(e, t) {
-    var a = n.get(e);
-    a && (t ? a.splice(a.indexOf(t) >>> 0, 1) : n.set(e, []));
-  }, emit: function(e, t) {
-    var a = n.get(e);
-    a && a.slice().map(function(l) {
-      l(t);
-    }), (a = n.get("*")) && a.slice().map(function(l) {
-      l(e, t);
+  i instanceof WeakSet ? i.add(e) : i.set(e, t);
+}, H = (e, i, t, a) => (ht(e, i, "write to private field"), a ? a.call(e, t) : i.set(e, t), t);
+function pt(e) {
+  return { all: e = e || /* @__PURE__ */ new Map(), on: function(i, t) {
+    var a = e.get(i);
+    a ? a.push(t) : e.set(i, [t]);
+  }, off: function(i, t) {
+    var a = e.get(i);
+    a && (t ? a.splice(a.indexOf(t) >>> 0, 1) : e.set(i, []));
+  }, emit: function(i, t) {
+    var a = e.get(i);
+    a && a.slice().map(function(v) {
+      v(t);
+    }), (a = e.get("*")) && a.slice().map(function(v) {
+      v(i, t);
     });
   } };
 }
-var et = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, dt = "Expected a function", ft = 0 / 0, pt = "[object Symbol]", xt = /^\s+|\s+$/g, Mt = /^[-+]0x[0-9a-f]+$/i, yt = /^0b[01]+$/i, bt = /^0o[0-7]+$/i, Ct = parseInt, Dt = typeof et == "object" && et && et.Object === Object && et, Ot = typeof self == "object" && self && self.Object === Object && self, wt = Dt || Ot || Function("return this")(), Tt = Object.prototype, St = Tt.toString, _t = Math.max, kt = Math.min, at = function() {
+var Q = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, lt = "Expected a function", ct = 0 / 0, xt = "[object Symbol]", Ct = /^\s+|\s+$/g, Mt = /^[-+]0x[0-9a-f]+$/i, bt = /^0b[01]+$/i, yt = /^0o[0-7]+$/i, Ot = parseInt, Tt = typeof Q == "object" && Q && Q.Object === Object && Q, Dt = typeof self == "object" && self && self.Object === Object && self, wt = Tt || Dt || Function("return this")(), St = Object.prototype, _t = St.toString, kt = Math.max, Yt = Math.min, ot = function() {
   return wt.Date.now();
 };
-function Yt(n, e, t) {
-  var a, l, h, d, u, y, f = 0, b = !1, c = !1, M = !0;
-  if (typeof n != "function")
-    throw new TypeError(dt);
-  e = ut(e) || 0, st(t) && (b = !!t.leading, c = "maxWait" in t, h = c ? _t(ut(t.maxWait) || 0, e) : h, M = "trailing" in t ? !!t.trailing : M);
-  function o(D) {
-    var E = a, B = l;
-    return a = l = void 0, f = D, d = n.apply(B, E), d;
+function It(e, i, t) {
+  var a, v, c, p, l, f, d = 0, M = !1, h = !1, C = !0;
+  if (typeof e != "function")
+    throw new TypeError(lt);
+  i = ft(i) || 0, st(t) && (M = !!t.leading, h = "maxWait" in t, c = h ? kt(ft(t.maxWait) || 0, i) : c, C = "trailing" in t ? !!t.trailing : C);
+  function u(y) {
+    var W = a, B = v;
+    return a = v = void 0, d = y, p = e.apply(B, W), p;
   }
-  function g(D) {
-    return f = D, u = setTimeout(F, e), b ? o(D) : d;
+  function b(y) {
+    return d = y, l = setTimeout(A, i), M ? u(y) : p;
   }
-  function x(D) {
-    var E = D - y, B = D - f, T = e - E;
-    return c ? kt(T, h - B) : T;
+  function s(y) {
+    var W = y - f, B = y - d, D = i - W;
+    return h ? Yt(D, c - B) : D;
   }
-  function I(D) {
-    var E = D - y, B = D - f;
-    return y === void 0 || E >= e || E < 0 || c && B >= h;
+  function w(y) {
+    var W = y - f, B = y - d;
+    return f === void 0 || W >= i || W < 0 || h && B >= c;
   }
-  function F() {
-    var D = at();
-    if (I(D))
-      return W(D);
-    u = setTimeout(F, x(D));
+  function A() {
+    var y = ot();
+    if (w(y))
+      return k(y);
+    l = setTimeout(A, s(y));
   }
-  function W(D) {
-    return u = void 0, M && a ? o(D) : (a = l = void 0, d);
+  function k(y) {
+    return l = void 0, C && a ? u(y) : (a = v = void 0, p);
   }
-  function H() {
-    u !== void 0 && clearTimeout(u), f = 0, a = y = l = u = void 0;
+  function I() {
+    l !== void 0 && clearTimeout(l), d = 0, a = f = v = l = void 0;
   }
-  function rt() {
-    return u === void 0 ? d : W(at());
+  function X() {
+    return l === void 0 ? p : k(ot());
   }
-  function N() {
-    var D = at(), E = I(D);
-    if (a = arguments, l = this, y = D, E) {
-      if (u === void 0)
-        return g(y);
-      if (c)
-        return u = setTimeout(F, e), o(y);
+  function Z() {
+    var y = ot(), W = w(y);
+    if (a = arguments, v = this, f = y, W) {
+      if (l === void 0)
+        return b(f);
+      if (h)
+        return l = setTimeout(A, i), u(f);
     }
-    return u === void 0 && (u = setTimeout(F, e)), d;
+    return l === void 0 && (l = setTimeout(A, i)), p;
   }
-  return N.cancel = H, N.flush = rt, N;
+  return Z.cancel = I, Z.flush = X, Z;
 }
-function At(n, e, t) {
-  var a = !0, l = !0;
-  if (typeof n != "function")
-    throw new TypeError(dt);
-  return st(t) && (a = "leading" in t ? !!t.leading : a, l = "trailing" in t ? !!t.trailing : l), Yt(n, e, {
+function Wt(e, i, t) {
+  var a = !0, v = !0;
+  if (typeof e != "function")
+    throw new TypeError(lt);
+  return st(t) && (a = "leading" in t ? !!t.leading : a, v = "trailing" in t ? !!t.trailing : v), It(e, i, {
     leading: a,
-    maxWait: e,
-    trailing: l
+    maxWait: i,
+    trailing: v
   });
 }
-function st(n) {
-  var e = typeof n;
-  return !!n && (e == "object" || e == "function");
+function st(e) {
+  var i = typeof e;
+  return !!e && (i == "object" || i == "function");
 }
-function jt(n) {
-  return !!n && typeof n == "object";
+function jt(e) {
+  return !!e && typeof e == "object";
 }
-function It(n) {
-  return typeof n == "symbol" || jt(n) && St.call(n) == pt;
+function At(e) {
+  return typeof e == "symbol" || jt(e) && _t.call(e) == xt;
 }
-function ut(n) {
-  if (typeof n == "number")
-    return n;
-  if (It(n))
-    return ft;
-  if (st(n)) {
-    var e = typeof n.valueOf == "function" ? n.valueOf() : n;
-    n = st(e) ? e + "" : e;
+function ft(e) {
+  if (typeof e == "number")
+    return e;
+  if (At(e))
+    return ct;
+  if (st(e)) {
+    var i = typeof e.valueOf == "function" ? e.valueOf() : e;
+    e = st(i) ? i + "" : i;
   }
-  if (typeof n != "string")
-    return n === 0 ? n : +n;
-  n = n.replace(xt, "");
-  var t = yt.test(n);
-  return t || bt.test(n) ? Ct(n.slice(2), t ? 2 : 8) : Mt.test(n) ? ft : +n;
+  if (typeof e != "string")
+    return e === 0 ? e : +e;
+  e = e.replace(Ct, "");
+  var t = bt.test(e);
+  return t || yt.test(e) ? Ot(e.slice(2), t ? 2 : 8) : Mt.test(e) ? ct : +e;
 }
-var lt = At, mt = { exports: {} };
-(function(n, e) {
+var ut = Wt, dt = { exports: {} };
+(function(e, i) {
   (function(t, a) {
-    n.exports = a();
-  })(et, function() {
-    var t = 1e3, a = 6e4, l = 36e5, h = "millisecond", d = "second", u = "minute", y = "hour", f = "day", b = "week", c = "month", M = "quarter", o = "year", g = "date", x = "Invalid Date", I = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, F = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, W = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(m) {
-      var r = ["th", "st", "nd", "rd"], i = m % 100;
-      return "[" + m + (r[(i - 20) % 10] || r[i] || r[0]) + "]";
-    } }, H = function(m, r, i) {
+    e.exports = a();
+  })(Q, function() {
+    var t = 1e3, a = 6e4, v = 36e5, c = "millisecond", p = "second", l = "minute", f = "hour", d = "day", M = "week", h = "month", C = "quarter", u = "year", b = "date", s = "Invalid Date", w = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, A = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, k = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(m) {
+      var o = ["th", "st", "nd", "rd"], n = m % 100;
+      return "[" + m + (o[(n - 20) % 10] || o[n] || o[0]) + "]";
+    } }, I = function(m, o, n) {
       var $ = String(m);
-      return !$ || $.length >= r ? m : "" + Array(r + 1 - $.length).join(i) + m;
-    }, rt = { s: H, z: function(m) {
-      var r = -m.utcOffset(), i = Math.abs(r), $ = Math.floor(i / 60), s = i % 60;
-      return (r <= 0 ? "+" : "-") + H($, 2, "0") + ":" + H(s, 2, "0");
-    }, m: function m(r, i) {
-      if (r.date() < i.date())
-        return -m(i, r);
-      var $ = 12 * (i.year() - r.year()) + (i.month() - r.month()), s = r.clone().add($, c), p = i - s < 0, v = r.clone().add($ + (p ? -1 : 1), c);
-      return +(-($ + (i - s) / (p ? s - v : v - s)) || 0);
+      return !$ || $.length >= o ? m : "" + Array(o + 1 - $.length).join(n) + m;
+    }, X = { s: I, z: function(m) {
+      var o = -m.utcOffset(), n = Math.abs(o), $ = Math.floor(n / 60), r = n % 60;
+      return (o <= 0 ? "+" : "-") + I($, 2, "0") + ":" + I(r, 2, "0");
+    }, m: function m(o, n) {
+      if (o.date() < n.date())
+        return -m(n, o);
+      var $ = 12 * (n.year() - o.year()) + (n.month() - o.month()), r = o.clone().add($, h), x = n - r < 0, g = o.clone().add($ + (x ? -1 : 1), h);
+      return +(-($ + (n - r) / (x ? r - g : g - r)) || 0);
     }, a: function(m) {
       return m < 0 ? Math.ceil(m) || 0 : Math.floor(m);
     }, p: function(m) {
-      return { M: c, y: o, w: b, d: f, D: g, h: y, m: u, s: d, ms: h, Q: M }[m] || String(m || "").toLowerCase().replace(/s$/, "");
+      return { M: h, y: u, w: M, d, D: b, h: f, m: l, s: p, ms: c, Q: C }[m] || String(m || "").toLowerCase().replace(/s$/, "");
     }, u: function(m) {
       return m === void 0;
-    } }, N = "en", D = {};
-    D[N] = W;
-    var E = function(m) {
-      return m instanceof nt;
-    }, B = function m(r, i, $) {
-      var s;
-      if (!r)
-        return N;
-      if (typeof r == "string") {
-        var p = r.toLowerCase();
-        D[p] && (s = p), i && (D[p] = i, s = p);
-        var v = r.split("-");
-        if (!s && v.length > 1)
-          return m(v[0]);
+    } }, Z = "en", y = {};
+    y[Z] = k;
+    var W = function(m) {
+      return m instanceof et;
+    }, B = function m(o, n, $) {
+      var r;
+      if (!o)
+        return Z;
+      if (typeof o == "string") {
+        var x = o.toLowerCase();
+        y[x] && (r = x), n && (y[x] = n, r = x);
+        var g = o.split("-");
+        if (!r && g.length > 1)
+          return m(g[0]);
       } else {
-        var C = r.name;
-        D[C] = r, s = C;
+        var O = o.name;
+        y[O] = o, r = O;
       }
-      return !$ && s && (N = s), s || !$ && N;
-    }, T = function(m, r) {
-      if (E(m))
+      return !$ && r && (Z = r), r || !$ && Z;
+    }, D = function(m, o) {
+      if (W(m))
         return m.clone();
-      var i = typeof r == "object" ? r : {};
-      return i.date = m, i.args = arguments, new nt(i);
-    }, O = rt;
-    O.l = B, O.i = E, O.w = function(m, r) {
-      return T(m, { locale: r.$L, utc: r.$u, x: r.$x, $offset: r.$offset });
+      var n = typeof o == "object" ? o : {};
+      return n.date = m, n.args = arguments, new et(n);
+    }, T = X;
+    T.l = B, T.i = W, T.w = function(m, o) {
+      return D(m, { locale: o.$L, utc: o.$u, x: o.$x, $offset: o.$offset });
     };
-    var nt = function() {
-      function m(i) {
-        this.$L = B(i.locale, null, !0), this.parse(i);
+    var et = function() {
+      function m(n) {
+        this.$L = B(n.locale, null, !0), this.parse(n);
       }
-      var r = m.prototype;
-      return r.parse = function(i) {
+      var o = m.prototype;
+      return o.parse = function(n) {
         this.$d = function($) {
-          var s = $.date, p = $.utc;
-          if (s === null)
+          var r = $.date, x = $.utc;
+          if (r === null)
             return new Date(NaN);
-          if (O.u(s))
+          if (T.u(r))
             return new Date();
-          if (s instanceof Date)
-            return new Date(s);
-          if (typeof s == "string" && !/Z$/i.test(s)) {
-            var v = s.match(I);
-            if (v) {
-              var C = v[2] - 1 || 0, S = (v[7] || "0").substring(0, 3);
-              return p ? new Date(Date.UTC(v[1], C, v[3] || 1, v[4] || 0, v[5] || 0, v[6] || 0, S)) : new Date(v[1], C, v[3] || 1, v[4] || 0, v[5] || 0, v[6] || 0, S);
+          if (r instanceof Date)
+            return new Date(r);
+          if (typeof r == "string" && !/Z$/i.test(r)) {
+            var g = r.match(w);
+            if (g) {
+              var O = g[2] - 1 || 0, _ = (g[7] || "0").substring(0, 3);
+              return x ? new Date(Date.UTC(g[1], O, g[3] || 1, g[4] || 0, g[5] || 0, g[6] || 0, _)) : new Date(g[1], O, g[3] || 1, g[4] || 0, g[5] || 0, g[6] || 0, _);
             }
           }
-          return new Date(s);
-        }(i), this.$x = i.x || {}, this.init();
-      }, r.init = function() {
-        var i = this.$d;
-        this.$y = i.getFullYear(), this.$M = i.getMonth(), this.$D = i.getDate(), this.$W = i.getDay(), this.$H = i.getHours(), this.$m = i.getMinutes(), this.$s = i.getSeconds(), this.$ms = i.getMilliseconds();
-      }, r.$utils = function() {
-        return O;
-      }, r.isValid = function() {
-        return this.$d.toString() !== x;
-      }, r.isSame = function(i, $) {
-        var s = T(i);
-        return this.startOf($) <= s && s <= this.endOf($);
-      }, r.isAfter = function(i, $) {
-        return T(i) < this.startOf($);
-      }, r.isBefore = function(i, $) {
-        return this.endOf($) < T(i);
-      }, r.$g = function(i, $, s) {
-        return O.u(i) ? this[$] : this.set(s, i);
-      }, r.unix = function() {
+          return new Date(r);
+        }(n), this.$x = n.x || {}, this.init();
+      }, o.init = function() {
+        var n = this.$d;
+        this.$y = n.getFullYear(), this.$M = n.getMonth(), this.$D = n.getDate(), this.$W = n.getDay(), this.$H = n.getHours(), this.$m = n.getMinutes(), this.$s = n.getSeconds(), this.$ms = n.getMilliseconds();
+      }, o.$utils = function() {
+        return T;
+      }, o.isValid = function() {
+        return this.$d.toString() !== s;
+      }, o.isSame = function(n, $) {
+        var r = D(n);
+        return this.startOf($) <= r && r <= this.endOf($);
+      }, o.isAfter = function(n, $) {
+        return D(n) < this.startOf($);
+      }, o.isBefore = function(n, $) {
+        return this.endOf($) < D(n);
+      }, o.$g = function(n, $, r) {
+        return T.u(n) ? this[$] : this.set(r, n);
+      }, o.unix = function() {
         return Math.floor(this.valueOf() / 1e3);
-      }, r.valueOf = function() {
+      }, o.valueOf = function() {
         return this.$d.getTime();
-      }, r.startOf = function(i, $) {
-        var s = this, p = !!O.u($) || $, v = O.p(i), C = function(P, A) {
-          var X = O.w(s.$u ? Date.UTC(s.$y, A, P) : new Date(s.$y, A, P), s);
-          return p ? X : X.endOf(f);
-        }, S = function(P, A) {
-          return O.w(s.toDate()[P].apply(s.toDate("s"), (p ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(A)), s);
-        }, w = this.$W, Y = this.$M, V = this.$D, R = "set" + (this.$u ? "UTC" : "");
-        switch (v) {
-          case o:
-            return p ? C(1, 0) : C(31, 11);
-          case c:
-            return p ? C(1, Y) : C(0, Y + 1);
-          case b:
-            var L = this.$locale().weekStart || 0, tt = (w < L ? w + 7 : w) - L;
-            return C(p ? V - tt : V + (6 - tt), Y);
-          case f:
-          case g:
-            return S(R + "Hours", 0);
-          case y:
-            return S(R + "Minutes", 1);
+      }, o.startOf = function(n, $) {
+        var r = this, x = !!T.u($) || $, g = T.p(n), O = function(q, U) {
+          var J = T.w(r.$u ? Date.UTC(r.$y, U, q) : new Date(r.$y, U, q), r);
+          return x ? J : J.endOf(d);
+        }, _ = function(q, U) {
+          return T.w(r.toDate()[q].apply(r.toDate("s"), (x ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(U)), r);
+        }, S = this.$W, j = this.$M, P = this.$D, N = "set" + (this.$u ? "UTC" : "");
+        switch (g) {
           case u:
-            return S(R + "Seconds", 2);
+            return x ? O(1, 0) : O(31, 11);
+          case h:
+            return x ? O(1, j) : O(0, j + 1);
+          case M:
+            var tt = this.$locale().weekStart || 0, it = (S < tt ? S + 7 : S) - tt;
+            return O(x ? P - it : P + (6 - it), j);
           case d:
-            return S(R + "Milliseconds", 3);
+          case b:
+            return _(N + "Hours", 0);
+          case f:
+            return _(N + "Minutes", 1);
+          case l:
+            return _(N + "Seconds", 2);
+          case p:
+            return _(N + "Milliseconds", 3);
           default:
             return this.clone();
         }
-      }, r.endOf = function(i) {
-        return this.startOf(i, !1);
-      }, r.$set = function(i, $) {
-        var s, p = O.p(i), v = "set" + (this.$u ? "UTC" : ""), C = (s = {}, s[f] = v + "Date", s[g] = v + "Date", s[c] = v + "Month", s[o] = v + "FullYear", s[y] = v + "Hours", s[u] = v + "Minutes", s[d] = v + "Seconds", s[h] = v + "Milliseconds", s)[p], S = p === f ? this.$D + ($ - this.$W) : $;
-        if (p === c || p === o) {
-          var w = this.clone().set(g, 1);
-          w.$d[C](S), w.init(), this.$d = w.set(g, Math.min(this.$D, w.daysInMonth())).$d;
+      }, o.endOf = function(n) {
+        return this.startOf(n, !1);
+      }, o.$set = function(n, $) {
+        var r, x = T.p(n), g = "set" + (this.$u ? "UTC" : ""), O = (r = {}, r[d] = g + "Date", r[b] = g + "Date", r[h] = g + "Month", r[u] = g + "FullYear", r[f] = g + "Hours", r[l] = g + "Minutes", r[p] = g + "Seconds", r[c] = g + "Milliseconds", r)[x], _ = x === d ? this.$D + ($ - this.$W) : $;
+        if (x === h || x === u) {
+          var S = this.clone().set(b, 1);
+          S.$d[O](_), S.init(), this.$d = S.set(b, Math.min(this.$D, S.daysInMonth())).$d;
         } else
-          C && this.$d[C](S);
+          O && this.$d[O](_);
         return this.init(), this;
-      }, r.set = function(i, $) {
-        return this.clone().$set(i, $);
-      }, r.get = function(i) {
-        return this[O.p(i)]();
-      }, r.add = function(i, $) {
-        var s, p = this;
-        i = Number(i);
-        var v = O.p($), C = function(Y) {
-          var V = T(p);
-          return O.w(V.date(V.date() + Math.round(Y * i)), p);
+      }, o.set = function(n, $) {
+        return this.clone().$set(n, $);
+      }, o.get = function(n) {
+        return this[T.p(n)]();
+      }, o.add = function(n, $) {
+        var r, x = this;
+        n = Number(n);
+        var g = T.p($), O = function(j) {
+          var P = D(x);
+          return T.w(P.date(P.date() + Math.round(j * n)), x);
         };
-        if (v === c)
-          return this.set(c, this.$M + i);
-        if (v === o)
-          return this.set(o, this.$y + i);
-        if (v === f)
-          return C(1);
-        if (v === b)
-          return C(7);
-        var S = (s = {}, s[u] = a, s[y] = l, s[d] = t, s)[v] || 1, w = this.$d.getTime() + i * S;
-        return O.w(w, this);
-      }, r.subtract = function(i, $) {
-        return this.add(-1 * i, $);
-      }, r.format = function(i) {
-        var $ = this, s = this.$locale();
+        if (g === h)
+          return this.set(h, this.$M + n);
+        if (g === u)
+          return this.set(u, this.$y + n);
+        if (g === d)
+          return O(1);
+        if (g === M)
+          return O(7);
+        var _ = (r = {}, r[l] = a, r[f] = v, r[p] = t, r)[g] || 1, S = this.$d.getTime() + n * _;
+        return T.w(S, this);
+      }, o.subtract = function(n, $) {
+        return this.add(-1 * n, $);
+      }, o.format = function(n) {
+        var $ = this, r = this.$locale();
         if (!this.isValid())
-          return s.invalidDate || x;
-        var p = i || "YYYY-MM-DDTHH:mm:ssZ", v = O.z(this), C = this.$H, S = this.$m, w = this.$M, Y = s.weekdays, V = s.months, R = function(A, X, ot, it) {
-          return A && (A[X] || A($, p)) || ot[X].slice(0, it);
-        }, L = function(A) {
-          return O.s(C % 12 || 12, A, "0");
-        }, tt = s.meridiem || function(A, X, ot) {
-          var it = A < 12 ? "AM" : "PM";
-          return ot ? it.toLowerCase() : it;
-        }, P = { YY: String(this.$y).slice(-2), YYYY: this.$y, M: w + 1, MM: O.s(w + 1, 2, "0"), MMM: R(s.monthsShort, w, V, 3), MMMM: R(V, w), D: this.$D, DD: O.s(this.$D, 2, "0"), d: String(this.$W), dd: R(s.weekdaysMin, this.$W, Y, 2), ddd: R(s.weekdaysShort, this.$W, Y, 3), dddd: Y[this.$W], H: String(C), HH: O.s(C, 2, "0"), h: L(1), hh: L(2), a: tt(C, S, !0), A: tt(C, S, !1), m: String(S), mm: O.s(S, 2, "0"), s: String(this.$s), ss: O.s(this.$s, 2, "0"), SSS: O.s(this.$ms, 3, "0"), Z: v };
-        return p.replace(F, function(A, X) {
-          return X || P[A] || v.replace(":", "");
+          return r.invalidDate || s;
+        var x = n || "YYYY-MM-DDTHH:mm:ssZ", g = T.z(this), O = this.$H, _ = this.$m, S = this.$M, j = r.weekdays, P = r.months, N = function(U, J, rt, nt) {
+          return U && (U[J] || U($, x)) || rt[J].slice(0, nt);
+        }, tt = function(U) {
+          return T.s(O % 12 || 12, U, "0");
+        }, it = r.meridiem || function(U, J, rt) {
+          var nt = U < 12 ? "AM" : "PM";
+          return rt ? nt.toLowerCase() : nt;
+        }, q = { YY: String(this.$y).slice(-2), YYYY: this.$y, M: S + 1, MM: T.s(S + 1, 2, "0"), MMM: N(r.monthsShort, S, P, 3), MMMM: N(P, S), D: this.$D, DD: T.s(this.$D, 2, "0"), d: String(this.$W), dd: N(r.weekdaysMin, this.$W, j, 2), ddd: N(r.weekdaysShort, this.$W, j, 3), dddd: j[this.$W], H: String(O), HH: T.s(O, 2, "0"), h: tt(1), hh: tt(2), a: it(O, _, !0), A: it(O, _, !1), m: String(_), mm: T.s(_, 2, "0"), s: String(this.$s), ss: T.s(this.$s, 2, "0"), SSS: T.s(this.$ms, 3, "0"), Z: g };
+        return x.replace(A, function(U, J) {
+          return J || q[U] || g.replace(":", "");
         });
-      }, r.utcOffset = function() {
+      }, o.utcOffset = function() {
         return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-      }, r.diff = function(i, $, s) {
-        var p, v = O.p($), C = T(i), S = (C.utcOffset() - this.utcOffset()) * a, w = this - C, Y = O.m(this, C);
-        return Y = (p = {}, p[o] = Y / 12, p[c] = Y, p[M] = Y / 3, p[b] = (w - S) / 6048e5, p[f] = (w - S) / 864e5, p[y] = w / l, p[u] = w / a, p[d] = w / t, p)[v] || w, s ? Y : O.a(Y);
-      }, r.daysInMonth = function() {
-        return this.endOf(c).$D;
-      }, r.$locale = function() {
-        return D[this.$L];
-      }, r.locale = function(i, $) {
-        if (!i)
+      }, o.diff = function(n, $, r) {
+        var x, g = T.p($), O = D(n), _ = (O.utcOffset() - this.utcOffset()) * a, S = this - O, j = T.m(this, O);
+        return j = (x = {}, x[u] = j / 12, x[h] = j, x[C] = j / 3, x[M] = (S - _) / 6048e5, x[d] = (S - _) / 864e5, x[f] = S / v, x[l] = S / a, x[p] = S / t, x)[g] || S, r ? j : T.a(j);
+      }, o.daysInMonth = function() {
+        return this.endOf(h).$D;
+      }, o.$locale = function() {
+        return y[this.$L];
+      }, o.locale = function(n, $) {
+        if (!n)
           return this.$L;
-        var s = this.clone(), p = B(i, $, !0);
-        return p && (s.$L = p), s;
-      }, r.clone = function() {
-        return O.w(this.$d, this);
-      }, r.toDate = function() {
+        var r = this.clone(), x = B(n, $, !0);
+        return x && (r.$L = x), r;
+      }, o.clone = function() {
+        return T.w(this.$d, this);
+      }, o.toDate = function() {
         return new Date(this.valueOf());
-      }, r.toJSON = function() {
+      }, o.toJSON = function() {
         return this.isValid() ? this.toISOString() : null;
-      }, r.toISOString = function() {
+      }, o.toISOString = function() {
         return this.$d.toISOString();
-      }, r.toString = function() {
+      }, o.toString = function() {
         return this.$d.toUTCString();
       }, m;
-    }(), ht = nt.prototype;
-    return T.prototype = ht, [["$ms", h], ["$s", d], ["$m", u], ["$H", y], ["$W", f], ["$M", c], ["$y", o], ["$D", g]].forEach(function(m) {
-      ht[m[1]] = function(r) {
-        return this.$g(r, m[0], m[1]);
+    }(), at = et.prototype;
+    return D.prototype = at, [["$ms", c], ["$s", p], ["$m", l], ["$H", f], ["$W", d], ["$M", h], ["$y", u], ["$D", b]].forEach(function(m) {
+      at[m[1]] = function(o) {
+        return this.$g(o, m[0], m[1]);
       };
-    }), T.extend = function(m, r) {
-      return m.$i || (m(r, nt, T), m.$i = !0), T;
-    }, T.locale = B, T.isDayjs = E, T.unix = function(m) {
-      return T(1e3 * m);
-    }, T.en = D[N], T.Ls = D, T.p = {}, T;
+    }), D.extend = function(m, o) {
+      return m.$i || (m(o, et, D), m.$i = !0), D;
+    }, D.locale = B, D.isDayjs = W, D.unix = function(m) {
+      return D(1e3 * m);
+    }, D.en = y[Z], D.Ls = y, D.p = {}, D;
   });
-})(mt);
-const J = mt.exports, _ = (n, e = "MM/DD HH:mm") => J(n * 1e3).format(e), Wt = (n = Math.floor(Date.now() / 1e3)) => {
-  const e = n * 1e3, t = J(e).year(), a = J(e).month(), l = J(e).date(), h = J(e).day(), d = new Date(t, a, l - h).getTime();
-  return Math.floor(d / 1e3);
-};
-function Et({
-  pointWidth: n,
-  timePerPixel: e,
+})(dt);
+const mt = dt.exports;
+var $t = { exports: {} };
+(function(e, i) {
+  (function(t, a) {
+    e.exports = a();
+  })(Q, function() {
+    var t = "minute", a = /[+-]\d\d(?::?\d\d)?/g, v = /([+-]|\d\d)/g;
+    return function(c, p, l) {
+      var f = p.prototype;
+      l.utc = function(s) {
+        var w = { date: s, utc: !0, args: arguments };
+        return new p(w);
+      }, f.utc = function(s) {
+        var w = l(this.toDate(), { locale: this.$L, utc: !0 });
+        return s ? w.add(this.utcOffset(), t) : w;
+      }, f.local = function() {
+        return l(this.toDate(), { locale: this.$L, utc: !1 });
+      };
+      var d = f.parse;
+      f.parse = function(s) {
+        s.utc && (this.$u = !0), this.$utils().u(s.$offset) || (this.$offset = s.$offset), d.call(this, s);
+      };
+      var M = f.init;
+      f.init = function() {
+        if (this.$u) {
+          var s = this.$d;
+          this.$y = s.getUTCFullYear(), this.$M = s.getUTCMonth(), this.$D = s.getUTCDate(), this.$W = s.getUTCDay(), this.$H = s.getUTCHours(), this.$m = s.getUTCMinutes(), this.$s = s.getUTCSeconds(), this.$ms = s.getUTCMilliseconds();
+        } else
+          M.call(this);
+      };
+      var h = f.utcOffset;
+      f.utcOffset = function(s, w) {
+        var A = this.$utils().u;
+        if (A(s))
+          return this.$u ? 0 : A(this.$offset) ? h.call(this) : this.$offset;
+        if (typeof s == "string" && (s = function(Z) {
+          Z === void 0 && (Z = "");
+          var y = Z.match(a);
+          if (!y)
+            return null;
+          var W = ("" + y[0]).match(v) || ["-", 0, 0], B = W[0], D = 60 * +W[1] + +W[2];
+          return D === 0 ? 0 : B === "+" ? D : -D;
+        }(s), s === null))
+          return this;
+        var k = Math.abs(s) <= 16 ? 60 * s : s, I = this;
+        if (w)
+          return I.$offset = k, I.$u = s === 0, I;
+        if (s !== 0) {
+          var X = this.$u ? this.toDate().getTimezoneOffset() : -1 * this.utcOffset();
+          (I = this.local().add(k + X, t)).$offset = k, I.$x.$localOffset = X;
+        } else
+          I = this.utc();
+        return I;
+      };
+      var C = f.format;
+      f.format = function(s) {
+        var w = s || (this.$u ? "YYYY-MM-DDTHH:mm:ss[Z]" : "");
+        return C.call(this, w);
+      }, f.valueOf = function() {
+        var s = this.$utils().u(this.$offset) ? 0 : this.$offset + (this.$x.$localOffset || this.$d.getTimezoneOffset());
+        return this.$d.valueOf() - 6e4 * s;
+      }, f.isUTC = function() {
+        return !!this.$u;
+      }, f.toISOString = function() {
+        return this.toDate().toISOString();
+      }, f.toString = function() {
+        return this.toDate().toUTCString();
+      };
+      var u = f.toDate;
+      f.toDate = function(s) {
+        return s === "s" && this.$offset ? l(this.format("YYYY-MM-DD HH:mm:ss:SSS")).toDate() : u.call(this);
+      };
+      var b = f.diff;
+      f.diff = function(s, w, A) {
+        if (s && this.$u === s.$u)
+          return b.call(this, s, w, A);
+        var k = this.local(), I = l(s).local();
+        return b.call(k, I, w, A);
+      };
+    };
+  });
+})($t);
+const Et = $t.exports;
+mt.extend(Et);
+const E = (e, i = "HH:mm") => mt.utc(e * 1e3).format(i);
+function Ut({
+  pointWidth: e,
+  timePerPixel: i,
   timeSpacing: t,
   screenScaleCount: a,
-  scaleSpacing: l,
-  scaleHeight: h,
-  startTime: d,
-  drawLine: u,
-  drawText: y
+  scaleSpacing: v,
+  scaleHeight: c,
+  startTime: p,
+  drawLine: l,
+  drawText: f
 }) {
-  if (t === 1) {
-    for (let f = 0; f < a; f++) {
-      const b = f * l + n / 2, c = Math.ceil(d + f * t);
-      if (c % 10 === 0) {
-        u(b, h.height5), y(b, h.height5 + 13, `${_(c, "HH:mm:ss")}`);
-        continue;
-      }
-      if (c % 5 === 0) {
-        u(b, h.height3);
-        continue;
-      }
-      if (c % 1 === 0) {
-        u(b, h.height1);
-        continue;
+  if (console.log("startTime", p), t === 1) {
+    for (let d = 0; d < a; d++) {
+      const M = d * v + e / 2, h = Math.ceil(p + d * t);
+      if (!(h <= 0)) {
+        if (h % 10 === 0) {
+          l(M, c.height5), f(M, c.height5 + 13, `${E(h, "HH:mm:ss")}`);
+          continue;
+        }
+        if (h % 5 === 0) {
+          l(M, c.height3);
+          continue;
+        }
+        if (h % 1 === 0) {
+          l(M, c.height1);
+          continue;
+        }
       }
     }
     return;
   }
   if (t === 10) {
-    const f = +_(d, "s") % 10, b = f / e;
-    for (let c = 0; c < a; c++) {
-      const M = c * l - b - n / 2, o = Math.ceil(d + c * t - f);
-      if (o % 60 === 0) {
-        u(M, h.height4), y(M, h.height5 + 13, `${_(o, "HH:mm")}`);
-        continue;
-      }
-      if (o % 10 === 0) {
-        u(M, h.height1);
-        continue;
+    const d = +E(p, "s") % 10, M = d / i;
+    for (let h = 0; h < a; h++) {
+      const C = h * v - M - e / 2, u = Math.ceil(p + h * t - d);
+      if (!(u <= 0)) {
+        if (u % 60 === 0) {
+          l(C, c.height4), f(C, c.height5 + 13, `${E(u, "HH:mm")}`);
+          continue;
+        }
+        if (u % 10 === 0) {
+          l(C, c.height1);
+          continue;
+        }
       }
     }
     return;
   }
   if (t === 30) {
-    const f = +_(d, "s") % 30, b = f / e;
-    for (let c = 0; c < a; c++) {
-      const M = c * l - b - n / 2, o = Math.ceil(d + c * t - f);
-      if (o % (60 * 5) === 0) {
-        u(M, h.height4), y(M, h.height5 + 13, `${_(o, "HH:mm")}`);
-        continue;
-      }
-      if (o % 30 === 0) {
-        u(M, h.height1);
-        continue;
+    const d = +E(p, "s") % 30, M = d / i;
+    for (let h = 0; h < a; h++) {
+      const C = h * v - M - e / 2, u = Math.ceil(p + h * t - d);
+      if (!(u <= 0)) {
+        if (u % (60 * 5) === 0) {
+          l(C, c.height4), f(C, c.height5 + 13, `${E(u, "HH:mm")}`);
+          continue;
+        }
+        if (u % 30 === 0) {
+          l(C, c.height1);
+          continue;
+        }
       }
     }
     return;
   }
   if (t === 60) {
-    const f = +_(d, "s") % 60, b = f / e;
-    for (let c = 0; c < a; c++) {
-      const M = c * l - b - n / 2, o = Math.ceil(d + c * t - f);
-      if (o % (60 * 60) === 0) {
-        u(M, h.height5), y(M, h.height5 + 13, `${_(o)}`);
-        continue;
-      }
-      if (o % (60 * 5) === 0) {
-        u(M, h.height3), o % (60 * 10) === 0 && y(M, h.height5 + 13, `${_(o, "HH:mm")}`);
-        continue;
-      }
-      if (o % 60 === 0) {
-        u(M, h.height1);
-        continue;
+    const d = +E(p, "s") % 60, M = d / i;
+    for (let h = 0; h < a; h++) {
+      const C = h * v - M - e / 2, u = Math.ceil(p + h * t - d);
+      if (!(u <= 0)) {
+        if (u % (60 * 60) === 0) {
+          l(C, c.height5), f(C, c.height5 + 13, `${E(u)}`);
+          continue;
+        }
+        if (u % (60 * 5) === 0) {
+          l(C, c.height3), u % (60 * 10) === 0 && f(C, c.height5 + 13, `${E(u, "HH:mm")}`);
+          continue;
+        }
+        if (u % 60 === 0) {
+          l(C, c.height1);
+          continue;
+        }
       }
     }
     return;
   }
   if (t === 120) {
-    const f = _(d, "m:s").split(":"), c = (+f[0] * 60 + +f[1]) % 120, M = c / e;
-    for (let o = 0; o < a; o++) {
-      const g = o * l - M - n / 2, x = Math.ceil(d + o * t - c);
-      if (x % (60 * 30) === 0) {
-        u(g, h.height5), y(g, h.height5 + 13, `${_(x)}`);
-        continue;
-      }
-      if (x % (60 * 10) === 0) {
-        u(g, h.height3);
-        continue;
-      }
-      if (x % (60 * 2) === 0) {
-        u(g, h.height1);
-        continue;
+    const d = E(p, "m:s").split(":"), h = (+d[0] * 60 + +d[1]) % 120, C = h / i;
+    for (let u = 0; u < a; u++) {
+      const b = u * v - C - e / 2, s = Math.ceil(p + u * t - h);
+      if (!(s <= 0)) {
+        if (s % (60 * 30) === 0) {
+          l(b, c.height5), f(b, c.height5 + 13, `${E(s)}`);
+          continue;
+        }
+        if (s % (60 * 10) === 0) {
+          l(b, c.height3);
+          continue;
+        }
+        if (s % (60 * 2) === 0) {
+          l(b, c.height1);
+          continue;
+        }
       }
     }
     return;
   }
   if (t === 300) {
-    const f = _(d, "m:s").split(":"), c = (+f[0] * 60 + +f[1]) % 300, M = c / e;
-    for (let o = 0; o < a; o++) {
-      const g = o * l - M - n / 2, x = Math.ceil(d + o * t - c);
-      if (x % (60 * 60) === 0) {
-        u(g, h.height5), y(g, h.height5 + 13, `${_(x)}`);
-        continue;
-      }
-      if (x % (60 * 30) === 0) {
-        u(g, h.height3);
-        continue;
-      }
-      if (x % (60 * 5) === 0) {
-        u(g, h.height1);
-        continue;
-      }
-    }
-    return;
-  }
-  if (t === 7200) {
-    const f = _(d, "H:m:s").split(":"), c = (+f[0] * 3600 + +f[1] * 60 + +f[2]) % 7200, M = c / e;
-    for (let o = 0; o < a; o++) {
-      const g = o * l - M - n / 2, x = Math.ceil(d + o * t - c);
-      if (x % (3600 * 24) === 0) {
-        u(g, h.height5), y(g, h.height5 + 13, `${_(x, "MM/DD HH:mm")}`);
-        continue;
-      }
-      if (x % (3600 * 12) === 0) {
-        u(g, h.height3);
-        continue;
-      }
-      if (x % 7200 === 0) {
-        u(g, h.height1);
-        continue;
+    const d = E(p, "m:s").split(":"), h = (+d[0] * 60 + +d[1]) % 300, C = h / i;
+    for (let u = 0; u < a; u++) {
+      const b = u * v - C - e / 2, s = Math.ceil(p + u * t - h);
+      if (!(s <= 0)) {
+        if (s % (60 * 60) === 0) {
+          l(b, c.height5), f(b, c.height5 + 13, `${E(s)}`);
+          continue;
+        }
+        if (s % (60 * 30) === 0) {
+          l(b, c.height3);
+          continue;
+        }
+        if (s % (60 * 5) === 0) {
+          l(b, c.height1);
+          continue;
+        }
       }
     }
     return;
   }
-  if (t === 86400) {
-    const f = _(d, "H:m:s").split(":"), c = (+f[0] * 3600 + +f[1] * 60 + +f[2]) % 86400, M = c / e;
-    for (let o = 0; o < a; o++) {
-      const g = o * l - M - n / 2, x = Math.ceil(d + o * t - c);
-      if (_(x, "D") === "1") {
-        u(g, h.height5), y(g, h.height5 + 13, `${_(x, "YYYY/MM/DD")}`);
-        continue;
-      }
-      if (x % 86400 === 57600) {
-        u(g, h.height1);
-        continue;
-      }
-    }
-    return;
-  }
-  if (t === 604800) {
-    const f = d - Wt(d), b = f / e, c = new Array(a).fill(!1), M = (o) => {
-      for (let g = o; g > o - 7; g--)
-        if (c[g])
-          return !1;
-      return !0;
-    };
-    for (let o = 0; o < a; o++) {
-      const g = o * l - b, x = Math.ceil(d + o * t - f);
-      if (J(x * 1e3).month() === 0 && (J(x * 1e3).date() > 0 || J(x * 1e3).date() <= 31) && M(o)) {
-        c[o] = !0, u(g, h.height5), y(g, h.height5 + 13, `${_(x, "YYYY/MM/DD")}`);
-        continue;
-      }
-      if (J(x * 1e3).day() === 0) {
-        u(g, h.height1);
-        continue;
+  if (t === 600) {
+    const d = E(p, "m:s").split(":"), h = (+d[0] * 60 + +d[1]) % 600, C = h / i;
+    for (let u = 0; u < a; u++) {
+      const b = u * v - C - e / 2, s = Math.ceil(p + u * t - h);
+      if (!(s <= 0)) {
+        if (s % (60 * 60) === 0) {
+          l(b, c.height5), f(b, c.height5 + 13, `${E(s)}`);
+          continue;
+        }
+        if (s % (60 * 30) === 0) {
+          l(b, c.height3);
+          continue;
+        }
+        if (s % (60 * 5) === 0) {
+          l(b, c.height1);
+          continue;
+        }
       }
     }
     return;
@@ -502,112 +562,113 @@ const Zt = {
   pointColor: "#00aeec",
   pointWidth: 3,
   scaleSpacing: 7,
-  fps: 60,
+  fps: 30,
   zoom: 2,
-  maxZoom: 9,
+  maxZoom: 8,
   minZoom: 1
 };
-var q, U, Z, K, G;
+var L, R, F, K, V;
 class Bt {
-  constructor(e, t) {
-    j(this, "$canvas");
-    j(this, "canvasContext");
-    Q(this, q, void 0);
-    j(this, "currentTime");
-    j(this, "areas");
-    Q(this, U, void 0);
-    Q(this, Z, void 0);
-    j(this, "scaleSpacing");
-    j(this, "bgColor");
-    Q(this, K, void 0);
-    j(this, "pointWidth");
-    j(this, "pointColor");
-    j(this, "textColor");
-    j(this, "scaleColor");
-    j(this, "areaBgColor");
-    Q(this, G, void 0);
-    j(this, "fps");
-    if (!e)
+  constructor(i, t) {
+    z(this, "$canvas");
+    z(this, "canvasContext");
+    G(this, L, void 0);
+    z(this, "currentTime");
+    z(this, "areas");
+    G(this, R, void 0);
+    G(this, F, void 0);
+    z(this, "scaleSpacing");
+    z(this, "bgColor");
+    G(this, K, void 0);
+    z(this, "pointWidth");
+    z(this, "pointColor");
+    z(this, "textColor");
+    z(this, "scaleColor");
+    z(this, "areaBgColor");
+    G(this, V, void 0);
+    z(this, "fps");
+    if (!i)
       throw new Error("canvas id is required!");
-    this.$canvas = document.getElementById(e), this.canvasContext = this.$canvas.getContext("2d");
-    const { fill: a, width: l, height: h, bgColor: d, textColor: u, scaleColor: y, areaBgColor: f, pointColor: b, pointWidth: c, scaleSpacing: M, fps: o, zoom: g, maxZoom: x, minZoom: I } = { ...Zt, ...t };
-    if (g < I || g > x || g % 1 !== 0)
-      throw new Error(`zoom must be minZoom ~ maxZoom(${I} ~1 ${x}), and must be an integer`);
-    if (x < 1 || x > 9 || x % 1 !== 0)
-      throw new Error("maxZoom must be 1 ~ 9, and must be an integer");
-    if (I < 1 || I > 9 || I % 1 !== 0)
-      throw new Error("minZoom must be 1 ~ 9, and must be an integer");
-    if (x < I)
+    this.$canvas = document.getElementById(i), this.canvasContext = this.$canvas.getContext("2d");
+    const { fill: a, width: v, height: c, bgColor: p, textColor: l, scaleColor: f, areaBgColor: d, pointColor: M, pointWidth: h, scaleSpacing: C, fps: u, zoom: b, maxZoom: s, minZoom: w } = { ...Zt, ...t };
+    if (b < w || b > s || b % 1 !== 0)
+      throw new Error(`zoom must be minZoom ~ maxZoom(${w} ~1 ${s}), and must be an integer`);
+    if (s < 1 || s > 7 || s % 1 !== 0)
+      throw new Error("maxZoom must be 1 ~ 7, and must be an integer");
+    if (w < 1 || w > 7 || w % 1 !== 0)
+      throw new Error("minZoom must be 1 ~ 7, and must be an integer");
+    if (s < w)
       throw new Error("maxZoom must be greater than minZoom");
     if (a) {
-      const W = this.$canvas.parentElement;
-      this.$canvas.width = W.clientWidth, this.$canvas.height = W.clientHeight, new ResizeObserver(lt(this._onParentResize.bind(this), 200)).observe(W);
+      const k = this.$canvas.parentElement;
+      this.$canvas.width = k.clientWidth, this.$canvas.height = k.clientHeight, new ResizeObserver(ut(this._onParentResize.bind(this), 200)).observe(k);
     } else
-      l && (this.$canvas.width = l), h && (this.$canvas.height = h);
-    z(this, G, !1), z(this, q, gt()), this.currentTime = 0;
-    const F = [1, 10, 30, 60, 120, 300, 7200, 86400, 604800];
-    z(this, U, []);
-    for (let W = I - 1; W < x; W++)
-      k(this, U).push(F[W]);
-    z(this, Z, F[g - 1]), this.scaleSpacing = M, z(this, K, {
+      v && (this.$canvas.width = v), c && (this.$canvas.height = c);
+    H(this, V, !1), H(this, L, pt()), this.currentTime = 0;
+    const A = [1, 10, 30, 60, 120, 300, 600];
+    H(this, R, []);
+    for (let k = w - 1; k < s; k++)
+      Y(this, R).push(A[k]);
+    H(this, F, A[b - 1]), this.scaleSpacing = C, H(this, K, {
       height6: this.$canvas.height / 2,
       height5: this.$canvas.height / 3,
       height4: this.$canvas.height / 4,
       height3: this.$canvas.height / 5,
       height2: this.$canvas.height / 8,
       height1: this.$canvas.height / 10
-    }), this.bgColor = d, this.pointWidth = c, this.pointColor = b, this.textColor = u, this.scaleColor = y, this.areaBgColor = f, this.fps = o;
+    }), this.bgColor = p, this.pointWidth = h, this.pointColor = M, this.textColor = l, this.scaleColor = f, this.areaBgColor = d, this.fps = u;
   }
-  draw({ currentTime: e, areas: t, _privateFlag: a } = {}) {
-    if (k(this, G) && !a)
+  draw({ currentTime: i, areas: t, _privateFlag: a } = {}) {
+    if (Y(this, V) && !a)
       return;
-    this.currentTime = e || Math.floor(Date.now() / 1e3), this.areas = t || [];
-    const l = Math.ceil(this.$canvas.width / this.scaleSpacing), h = l * k(this, Z), d = this.currentTime - h / 2, u = this.currentTime + h / 2, y = this.$canvas.width / 2, f = h / this.$canvas.width;
-    this.clear(), this.drawArea(0, 0, this.$canvas.width, this.$canvas.height, this.bgColor), this.areas.forEach((b) => {
-      const c = b.startTime < d ? 0 : Math.floor((b.startTime - d) / f), M = b.endTime > u ? this.$canvas.width : Math.floor((b.endTime - d) / f);
-      this.drawArea(c, 0, M, this.$canvas.height, b.bgColor || this.areaBgColor);
-    }), Et.bind(this)({
+    this.currentTime = i || Math.floor(0), this.areas = t || [];
+    const v = Math.ceil(this.$canvas.width / this.scaleSpacing), c = v * Y(this, F), p = this.currentTime - c / 2, l = this.currentTime + c / 2, f = this.$canvas.width / 2, d = c / this.$canvas.width;
+    this.clear(), this.drawArea(0, 0, this.$canvas.width, this.$canvas.height, this.bgColor), this.areas.forEach((M) => {
+      const h = M.startTime < p ? 0 : Math.floor((M.startTime - p) / d), C = M.endTime > l ? this.$canvas.width : Math.floor((M.endTime - p) / d);
+      this.drawArea(h, 0, C, this.$canvas.height, M.bgColor || this.areaBgColor);
+    }), Ut.bind(this)({
       pointWidth: this.pointWidth,
-      timePerPixel: f,
-      scaleHeight: k(this, K),
+      timePerPixel: d,
+      scaleHeight: Y(this, K),
       scaleSpacing: this.scaleSpacing,
-      timeSpacing: k(this, Z),
-      screenScaleCount: l,
-      startTime: d,
+      timeSpacing: Y(this, F),
+      screenScaleCount: v,
+      startTime: p,
       drawLine: this.drawLine.bind(this),
       drawText: this.drawText.bind(this)
-    }), this.drawTimelineScale(k(this, Z)), this.drawLine(y - this.pointWidth / 2, this.$canvas.height, this.pointWidth, this.pointColor), this.drawArea(y - 54, 4, y + 54, 18, this.pointColor), this.drawText(y, 6, `${_(this.currentTime, "YYYY/MM/DD HH:mm:ss")}`, this.textColor, "center", "top"), this.$canvas.onwheel = this._onZoom.bind(this), this.$canvas.onmousedown = this._onDrag.bind(this);
+    }), this.drawTimelineScale(Y(this, F)), this.drawLine(f - this.pointWidth / 2, this.$canvas.height, this.pointWidth, this.pointColor), this.drawArea(f - 54, 4, f + 54, 18, this.pointColor), this.drawText(f, 6, `${E(this.currentTime, "HH:mm:ss")}`, this.textColor, "center", "top"), this.$canvas.onwheel = this._onZoom.bind(this), this.$canvas.onmousedown = this._onDrag.bind(this);
   }
-  _onDrag({ clientX: e }) {
-    z(this, G, !0);
+  _onDrag({ clientX: i }) {
+    H(this, V, !0);
     let t = 0;
-    document.onmousemove = lt((a) => {
-      const l = a.clientX - e, h = this.currentTime - k(this, Z) / this.scaleSpacing * (l - t);
-      t = l, this.draw({
-        currentTime: Math.round(h),
+    document.onmousemove = ut((a) => {
+      const v = a.clientX - i;
+      let c = this.currentTime - Y(this, F) / this.scaleSpacing * (v - t);
+      c = Math.max(c, 0), t = v, this.draw({
+        currentTime: Math.round(c),
         areas: this.areas,
         _privateFlag: !0
       });
-    }, k(this, Z) === 1 ? 100 : 1e3 / this.fps), document.onmouseup = () => {
-      document.onmousemove = null, document.onmouseup = null, z(this, G, !1), this.emit("timeUpdate", this.currentTime);
+    }, Y(this, F) === 1 ? 100 : 1e3 / this.fps), document.onmouseup = () => {
+      document.onmousemove = null, document.onmouseup = null, H(this, V, !1), this.emit("timeUpdate", this.currentTime);
     };
   }
-  _onZoom(e) {
-    e.preventDefault();
-    const t = k(this, U).findIndex((a) => a === k(this, Z));
-    e.deltaY < 0 && t > 0 ? (z(this, Z, k(this, U)[t - 1]), this.draw({
+  _onZoom(i) {
+    i.preventDefault();
+    const t = Y(this, R).findIndex((a) => a === Y(this, F));
+    i.deltaY < 0 && t > 0 ? (H(this, F, Y(this, R)[t - 1]), this.draw({
       currentTime: this.currentTime,
       areas: this.areas,
       _privateFlag: !0
-    })) : e.deltaY > 0 && t < k(this, U).length - 1 && (z(this, Z, k(this, U)[t + 1]), this.draw({
+    })) : i.deltaY > 0 && t < Y(this, R).length - 1 && (H(this, F, Y(this, R)[t + 1]), this.draw({
       currentTime: this.currentTime,
       areas: this.areas,
       _privateFlag: !0
     }));
   }
   _onParentResize() {
-    const e = this.$canvas.parentNode;
-    !e || (this.$canvas.width = e.clientWidth, this.$canvas.height = e.clientHeight, z(this, K, {
+    const i = this.$canvas.parentNode;
+    !i || (this.$canvas.width = i.clientWidth, this.$canvas.height = i.clientHeight, H(this, K, {
       height6: this.$canvas.height / 2,
       height5: this.$canvas.height / 3,
       height4: this.$canvas.height / 4,
@@ -622,9 +683,9 @@ class Bt {
   clear() {
     this.canvasContext && this.canvasContext.clearRect(0, 0, this.$canvas.width, this.$canvas.height), this.$canvas && (this.$canvas.onwheel = null, this.$canvas.onmousedown = null);
   }
-  drawTimelineScale(e) {
+  drawTimelineScale(i) {
     let t = "";
-    switch (e) {
+    switch (i) {
       case 1:
         t = "1s";
         break;
@@ -643,38 +704,32 @@ class Bt {
       case 300:
         t = "5min";
         break;
-      case 7200:
-        t = "2hour";
-        break;
-      case 86400:
-        t = "1day";
-        break;
-      case 604800:
-        t = "1week";
+      case 600:
+        t = "10min";
         break;
     }
     this.drawText(this.scaleSpacing + 12, 9, `${t}`, this.textColor, "left", "middle"), this.canvasContext.beginPath(), this.canvasContext.moveTo(5, 6), this.canvasContext.lineTo(5, 10), this.canvasContext.lineTo(this.scaleSpacing + 7, 10), this.canvasContext.lineTo(this.scaleSpacing + 7, 6), this.canvasContext.strokeStyle = this.scaleColor, this.canvasContext.lineWidth = 1.5, this.canvasContext.stroke();
   }
-  drawLine(e, t, a = 1, l = this.scaleColor) {
-    this.canvasContext.beginPath(), this.canvasContext.moveTo(e, this.$canvas.height), this.canvasContext.lineTo(e, this.$canvas.height - t), this.canvasContext.closePath(), this.canvasContext.strokeStyle = l, this.canvasContext.lineWidth = a, this.canvasContext.stroke();
+  drawLine(i, t, a = 1, v = this.scaleColor) {
+    this.canvasContext.beginPath(), this.canvasContext.moveTo(i, this.$canvas.height), this.canvasContext.lineTo(i, this.$canvas.height - t), this.canvasContext.closePath(), this.canvasContext.strokeStyle = v, this.canvasContext.lineWidth = a, this.canvasContext.stroke();
   }
-  drawText(e, t, a, l = this.textColor, h = "center", d = "alphabetic") {
-    this.canvasContext.beginPath(), this.canvasContext.font = "11px Arial", this.canvasContext.fillStyle = l, this.canvasContext.textAlign = h, this.canvasContext.textBaseline = d, this.canvasContext.fillText(a, e, t);
+  drawText(i, t, a, v = this.textColor, c = "center", p = "alphabetic") {
+    this.canvasContext.beginPath(), this.canvasContext.font = "11px Arial", this.canvasContext.fillStyle = v, this.canvasContext.textAlign = c, this.canvasContext.textBaseline = p, this.canvasContext.fillText(a, i, t);
   }
-  drawArea(e, t, a, l, h) {
-    this.canvasContext.beginPath(), this.canvasContext.rect(e, t, a - e, l - t), this.canvasContext.fillStyle = h, this.canvasContext.fill();
+  drawArea(i, t, a, v, c) {
+    this.canvasContext.beginPath(), this.canvasContext.rect(i, t, a - i, v - t), this.canvasContext.fillStyle = c, this.canvasContext.fill();
   }
-  on(e, t) {
-    k(this, q).on(e, t);
+  on(i, t) {
+    Y(this, L).on(i, t);
   }
-  off(e, t) {
-    k(this, q).off(e, t);
+  off(i, t) {
+    Y(this, L).off(i, t);
   }
-  emit(...e) {
-    k(this, q).emit(...e);
+  emit(...i) {
+    Y(this, L).emit(...i);
   }
 }
-q = new WeakMap(), U = new WeakMap(), Z = new WeakMap(), K = new WeakMap(), G = new WeakMap();
+L = new WeakMap(), R = new WeakMap(), F = new WeakMap(), K = new WeakMap(), V = new WeakMap();
 export {
   Bt as default
 };

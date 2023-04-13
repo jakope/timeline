@@ -29,9 +29,9 @@ const defaultOptions = {
   pointColor: '#00aeec',
   pointWidth: 3,
   scaleSpacing: 7,
-  fps: 60,
+  fps: 30,
   zoom: 2,
-  maxZoom: 9,
+  maxZoom: 8,
   minZoom: 1,
 }
 
@@ -69,6 +69,8 @@ class TimeLine {
   // fps
   fps: number;
 
+ 
+
   constructor(id: string, options: TimeLineOption) {
     if (!id) {
       throw new Error('canvas id is required!');
@@ -83,11 +85,11 @@ class TimeLine {
     if (zoom < minZoom || zoom > maxZoom || zoom % 1 !== 0) {
       throw new Error(`zoom must be minZoom ~ maxZoom(${minZoom} ~1 ${maxZoom}), and must be an integer`);
     }
-    if (maxZoom < 1 || maxZoom > 9 || maxZoom % 1 !== 0) {
-      throw new Error('maxZoom must be 1 ~ 9, and must be an integer');
+    if (maxZoom < 1 || maxZoom > 7 || maxZoom % 1 !== 0) {
+      throw new Error('maxZoom must be 1 ~ 7, and must be an integer');
     }
-    if (minZoom < 1 || minZoom > 9 || minZoom % 1 !== 0) {
-      throw new Error('minZoom must be 1 ~ 9, and must be an integer');
+    if (minZoom < 1 || minZoom > 7 || minZoom % 1 !== 0) {
+      throw new Error('minZoom must be 1 ~ 7, and must be an integer');
     }
     if (maxZoom < minZoom) {
       throw new Error('maxZoom must be greater than minZoom');
@@ -114,7 +116,7 @@ class TimeLine {
 
     this.currentTime = 0;
     
-    const timeSpacingMap = [1, 10, 30, 60, 120, 300, 7200, 86400, 604800];
+    const timeSpacingMap = [1, 10, 30, 60, 120, 300, 600];
     this.#timeSpacingMap = [];
     for (let i = minZoom - 1; i < maxZoom; i++) {
       this.#timeSpacingMap.push(timeSpacingMap[i]);
@@ -160,7 +162,7 @@ class TimeLine {
     }
     
     // 获取参数
-    this.currentTime = currentTime || Math.floor(Date.now() / 1000);
+    this.currentTime = currentTime || Math.floor(0);
     this.areas = areas || [];
 
     // 当前屏可绘制刻度数量
@@ -212,7 +214,7 @@ class TimeLine {
     // 绘制当前时间指针
     this.drawLine(xCenterPoint - this.pointWidth / 2, this.$canvas.height, this.pointWidth, this.pointColor);
     this.drawArea(xCenterPoint - 54, 4, xCenterPoint + 54, 18, this.pointColor);
-    this.drawText(xCenterPoint, 6, `${dateTime(this.currentTime, 'YYYY/MM/DD HH:mm:ss')}`, this.textColor, 'center', 'top');
+    this.drawText(xCenterPoint, 6, `${dateTime(this.currentTime, 'HH:mm:ss')}`, this.textColor, 'center', 'top');
 
     // 鼠标滚轮事件
     this.$canvas.onwheel = this._onZoom.bind(this);
@@ -227,8 +229,8 @@ class TimeLine {
     let prexOffset = 0;
     document.onmousemove = throttle((moveEvent) => {
       const curxOffset = moveEvent.clientX - clientX;
-      const currentTime = this.currentTime - this.#timeSpacing / this.scaleSpacing * (curxOffset - prexOffset);
-
+      let currentTime = this.currentTime - this.#timeSpacing / this.scaleSpacing * (curxOffset - prexOffset);
+      currentTime = Math.max(currentTime,0);
       prexOffset = curxOffset;
 
       this.draw({
@@ -301,7 +303,7 @@ class TimeLine {
   }
   // 绘制比例尺
   private drawTimelineScale(timespacing: number) {
-    // [1, 10, 30, 60, 120, 300, 7200, 86400, 604800];
+    // [1, 10, 30, 60, 120, 300];
     let text = '';
     switch (timespacing) {
       case 1:
@@ -322,14 +324,8 @@ class TimeLine {
       case 300:
         text = '5min';
         break;
-      case 7200:
-        text = '2hour';
-        break;
-      case 86400:
-        text = '1day';
-        break;
-      case 604800:
-        text = '1week';
+      case 600:
+        text = '10min';
         break;
       default:
         break;

@@ -8,8 +8,8 @@
 import MoeTimeline from '../src/main';
 
 const timeline = new MoeTimeline('timeline', {
-  fill: false,
-  width: 1000,
+  fill: true,
+  //width: 1000,
   height: 60,
   // bgColor: 'rgba(0,0,0,0.5)',
   // textColor: '#000',
@@ -23,16 +23,12 @@ const timeline = new MoeTimeline('timeline', {
 });
 
 timeline.draw({
-  currentTime: 1651827817,
+  currentTime: 0,
   areas: [{
-    startTime: 1651827433,
-    endTime: 1651829413,
+    startTime: 0,
+    endTime: 100,
     // bgColor: '#00AEEC'
-  },{
-    startTime: 1651829533,
-    endTime: 1651832533,
-    // bgColor: '#00AEEC'
-  }],
+  }]
 });
 
 // setInterval(() => {
@@ -41,8 +37,6 @@ timeline.draw({
 
 timeline.on('timeUpdate', (e: number) => {
   console.log(e, 'currentTime change');
-  const _date = new Date(e * 1000)
-  console.log(_date)
 })
 
 console.log(timeline);
